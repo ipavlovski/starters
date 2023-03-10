@@ -14,33 +14,23 @@ const t = initTRPC.context<Context>().create({
 
 
 export const appRouter = t.router({
-  getBlogposts: t.procedure
-    .input(
-      z.string()
-    )
-    .query(async (req) => {
-      console.log(`getEntries query: ${req.input}`)
-      return await h.getAllBlogposts()
-    }),
+  getTags: t.procedure.input(
+    z.string()
+  ).query(async ({ input: tagFilter }) => {
+    return await h.getAllTags(tagFilter)
+  }),
 
-  getTags: t.procedure
-    .input(
-      z.string()
-    )
-    .query(async (req) => {
-      console.log(`getTags query: ${req.input}`)
-      return await h.getAllTags()
-    }),
+  createTag: t.procedure.input(
+    z.string().min(3)
+  ).mutation(async ({ input: tagName }) => {
+    return await h.createNewTag(tagName)
+  }),
 
-
-  createTag: t.procedure
-    .input(
-      z.string().min(3)
-    )
-    .mutation(async (req) => {
-      console.log(`createTag mutation: ${req.input}`)
-      return await h.createNewTag(req.input)
-    }),
+  getBlogposts: t.procedure.input(
+    z.string().array()
+  ).query(async ({ input: tags }) => {
+    return await h.getBlogposts(tags)
+  }),
 
 
 })

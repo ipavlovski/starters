@@ -1,6 +1,7 @@
-import { Container, Text,
-  createStyles, MantineProvider, MantineThemeOverride, MultiSelect } from '@mantine/core'
-import { NotificationsProvider } from '@mantine/notifications'
+import {
+  Container, createStyles, MantineProvider, MantineThemeOverride, MultiSelect, Text
+} from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
@@ -22,12 +23,6 @@ const globalTheme: MantineThemeOverride = {
       '#11B7CD', '#09ADC3', '#0E99AC', '#128797', '#147885'],
     'cactus': ['#2BBC8A', '#405d53']
   },
-  globalStyles: (theme) => ({
-    // '*, *::before, *::after': {
-    //   padding: 0,
-    //   margin: 0
-    // },
-  })
 }
 
 ////////////// STORES
@@ -35,21 +30,16 @@ const globalTheme: MantineThemeOverride = {
 interface FilterStore {
   tags: string[]
   actions: {
-    addTag: (tag: string) => void
-    removeTag: (tag: string) => void
     setTags: (tags: string[]) => void
   }
 }
 
-export const useFilterStore = create<FilterStore>((set) => ({
+const useFilterStore = create<FilterStore>((set) => ({
   tags: [],
   actions: {
     setTags: (tags) => set(() => ({ tags })),
-    addTag: (tag) => set((state) => ({ tags: [...state.tags, tag] })),
-    removeTag: (tag) => set((state) => ({ tags: state.tags.filter((t) => t != tag) })),
   },
 }))
-
 
 ////////////// TRPC / RQ
 
@@ -72,27 +62,49 @@ const queryClient = new QueryClient({
   },
 })
 
-////////////// ROUTER
+////////////// STYLES
 
 
-const useStyles = createStyles(() => ({
-  tagList: {}
+const useStyles = createStyles((theme) => ({
+  input: { backgroundColor: theme.colors.dark[7] }
 }))
 
-function Root() {
+////////////// LOGIC
 
-  const { data = [] } = trpc.getTags.useQuery('')
-  const { data: blogposts } = trpc.getBlogposts.useQuery('')
+const useTags = () => {
+  const trpcContext = trpc.useContext()
+  const { data: allTags = [] } = trpc.getTags.useQuery('')
+  const createTag = trpc.createTag.useMutation({
+    onSuccess: () => trpcContext.getTags.invalidate()
+  })
+
+  return { allTags, createTag }
+}
+
+const useFilteredBlogposts = () => {
+  const selectedTags = useFilterStore((state) => state.tags)
+  const setSelectedTags = useFilterStore((state) => state.actions.setTags)
+  const { data: filteredBlogposts = [] } = trpc.getBlogposts.useQuery(selectedTags)
+
+  return { selectedTags, setSelectedTags, filteredBlogposts }
+}
+
+function Root() {
+  const { classes: { input: inputSx } } = useStyles()
+  const { allTags, createTag } = useTags()
+  const { selectedTags, setSelectedTags, filteredBlogposts } = useFilteredBlogposts()
 
   return (
     <Container pt={30} size={'xs'}>
-      <MultiSelect
-        data={data.map(({ name }) => ({ value: name, label: name }))}
-        searchable
-        label="List of tags:"
-        placeholder="Choose a tag..."
+      <MultiSelect classNames={{ input: inputSx }}
+        searchable creatable
+        label="List of tags:" placeholder="Choose a tag..."
+        data={allTags.map(({ name }) => ({ value: name, label: `#${name}` }))}
+        value={selectedTags} onChange={setSelectedTags}
+        getCreateLabel={(query) => `+ Create tag #${query}`}
+        onCreate={(tagName) => { return createTag.mutate(tagName), tagName }}
       />
-      {blogposts?.map( (v)=> (<Text m={4}>{v.title}</Text>))}
+      {filteredBlogposts.map((blogpost) => <Text key={blogpost.id}>{blogpost.title}</Text> )}
     </Container>
   )
 }
@@ -105,9 +117,8 @@ export default function App() {
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <MantineProvider withGlobalStyles withNormalizeCSS theme={globalTheme}>
-          <NotificationsProvider position="top-right" autoClose={1600}>
-            <Root />
-          </NotificationsProvider>
+          <Notifications />
+          <Root />
         </MantineProvider>
       </QueryClientProvider>
     </trpc.Provider>

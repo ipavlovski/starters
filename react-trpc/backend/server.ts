@@ -18,8 +18,7 @@ app.use(cors())
 app.use(morgan(':method :url :response-time'))
 
 // use the routes
-app.use( '/trpc', trpcExpress.createExpressMiddleware({ router: appRouter, createContext, }), )
-// app.use(routes)
+app.use('/trpc', trpcExpress.createExpressMiddleware({ router: appRouter, createContext, }), )
 
 // create HTTPS server
 const credentials: ServerOptions = {
