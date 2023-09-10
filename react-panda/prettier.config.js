@@ -6,5 +6,6 @@ module.exports = {
   printWidth: 100,
   tabWidth: 2,
   semi: false,
-  plugins: ['prettier-plugin-organize-imports']
+  plugins: ['prettier-plugin-organize-imports'],
+  organizeImportsSkipDestructiveCodeActions: true
 }
