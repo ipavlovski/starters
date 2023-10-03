@@ -38,15 +38,19 @@ yarn-error.log*
 next-env.d.ts
 .env*.local
 
+##############
 
-node_modules/
+# ignore scratch files
 scratch.*
-.env
+
+# ignore assets and dist directories
+assets/
 dist/
+
+# prisma
 prisma/*.db*
 prisma/migrations/
-assets/
 
-# Panda
+# panda
 styled-system
 styled-system-static
