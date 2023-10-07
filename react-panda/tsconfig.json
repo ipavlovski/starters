@@ -19,4 +19,15 @@
       "jsx": "react-jsx",
       "baseUrl": ".",
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "target": "ES2022",
+      "types": ["node"],
+      "lib": ["ES2022"]
+    },
+    "ignoreDiagnostics": [2393, 2300],
+    "require": ["dotenv/config"],
+    "exclude": ["node_modules", "scratch.ts"]
+  }
 }
