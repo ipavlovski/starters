@@ -19,7 +19,10 @@ export default defineConfig({
           '100%': { transform: 'translateX(-100%)' },
         },
       },
-      tokens: {},
+      fonts: {
+        jakarta: { value: 'Plus Jakarta Sans, sans-serif' },
+        pacifico: { value: 'Pacifico, cursive;' },
+      },
     },
   },
 
