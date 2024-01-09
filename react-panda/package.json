@@ -3,12 +3,17 @@
   "scripts": {
     "dev": "vite",
     "prepare": "panda codegen",
-    "repl": "while true; do /usr/bin/ts-node -e 'console.clear(); console.log(\"ready\")' -i; sleep 0; done"
+    "repl": "while true; do /usr/bin/ts-node -e 'console.clear(); console.log(\"ready\")' -i; sleep 0; done",
+    "tsnd": "json-server -p 4001 colordb.json"
   },
   "dependencies": {
+    "@react-spring/web": "^9.7.3",
+    "@tanstack/react-query": "^5.17.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
+    "react-query": "4",
+    "zod": "^3.22.4",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
@@ -19,12 +24,12 @@
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
     "@vitejs/plugin-react": "^4.2.1",
+    "dotenv": "^16.3.1",
     "dprint": "^0.45.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.4.33",
     "sass": "^1.69.7",
-    "vite": "^5.0.11",
-    "dotenv": "^16.3.1"
+    "vite": "^5.0.11"
   }
 }

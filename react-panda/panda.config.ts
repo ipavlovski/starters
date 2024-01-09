@@ -4,11 +4,15 @@ export default defineConfig({
   // Whether to use css reset
   preflight: true,
 
-  // Where to look for your css declarations
-  include: ['./src/**/*.{js,jsx,ts,tsx}', './main.tsx'],
-
-  // Files to exclude
-  exclude: [],
+  // global colors
+  globalCss: {
+    body: {
+      margin: 0,
+      padding: 0,
+      backgroundColor: 'slate.900',
+      color: 'slate.100',
+    },
+  },
 
   // Useful for theme customization
   theme: {
@@ -16,21 +20,27 @@ export default defineConfig({
       keyframes: {
         marquee: {
           '0%': {
-            transform: 'translateX(0%)'
+            transform: 'translateX(0%)',
           },
           '100%': {
-            transform: 'translateX(-100%)'
-          }
-        }
+            transform: 'translateX(-100%)',
+          },
+        },
       },
       tokens: {
         fonts: {
           jakarta: { value: 'Plus Jakarta Sans, sans-serif' },
-          pacifico: { value: 'Pacifico, cursive;' }
-        }
-      }
-    }
+          pacifico: { value: 'Pacifico, cursive;' },
+        },
+      },
+    },
   },
+
+  // Where to look for your css declarations
+  include: ['./src/**/*.{js,jsx,ts,tsx}', './main.tsx'],
+
+  // Files to exclude
+  exclude: [],
 
   // hash classnames for devtools readability
   hash: { cssVar: false, className: true },
@@ -39,5 +49,5 @@ export default defineConfig({
   jsxFramework: 'react',
 
   // The output directory for your css system
-  outdir: 'styled-system'
+  outdir: 'styled-system',
 })
