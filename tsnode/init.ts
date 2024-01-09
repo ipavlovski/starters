@@ -1,0 +1,1 @@
+console.log(`Username: ${process.env.USER_NAME}  🧙 `)
