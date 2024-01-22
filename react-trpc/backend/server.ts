@@ -1,28 +1,30 @@
-import cors from 'cors'
-import express, { json } from 'express'
-import { readFileSync } from 'fs'
-import { createServer as createSecureServer, ServerOptions } from 'https'
-import morgan from 'morgan'
-import * as trpcExpress from '@trpc/server/adapters/express'
+import { serve } from '@hono/node-server'
+import { trpcServer } from '@hono/trpc-server'
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+import { appRouter } from './router'
 
-import { appRouter, createContext } from 'backend/routes'
+//  =================================
+//              HONO+TRPC
+//  =================================
 
-// main server object
-const app = express()
+const port = 3010
+const app = new Hono()
+app.use('/trpc/*', cors())
+app.use('/trpc/*', trpcServer({ router: appRouter }))
 
-// middlware
-app.use(json())
-app.use(cors())
+//  ==================================
+//              API ROUTES
+//  ==================================
 
-// logging stuff
-app.use(morgan(':method :url :response-time'))
+app.get('/', (c) => {
+  console.log(c.req.url)
+  return c.text('Hello Hono!')
+})
 
-// use the routes
-app.use('/trpc', trpcExpress.createExpressMiddleware({ router: appRouter, createContext, }), )
+//  ===================================
+//              INIT SERVER
+//  ===================================
 
-// create HTTPS server
-const credentials: ServerOptions = {
-  key: readFileSync(`${process.env.HOME}/.config/ssl/homelab/homelab.key`, 'utf8'),
-  cert: readFileSync(`${process.env.HOME}/.config/ssl/homelab/homelab.crt`, 'utf8')
-}
-export default createSecureServer(credentials, app)
+serve({ fetch: app.fetch, port })
+console.log(`Server is running on port http://localhost:${port}`)
