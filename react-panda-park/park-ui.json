@@ -1,0 +1,11 @@
+{
+  "$schema": "https://park-ui.com/schema.json",
+  "cssFramework": "panda",
+  "jsFramework": "react",
+  "importAliases": {
+    // REPLACE with `lib/components` when doing `npx @park-ui/cli add --all`
+    "components": "~/lib/components",
+    "utils": "lib"
+  },
+  "useReactServerComponents": false
+}
