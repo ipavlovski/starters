@@ -1,27 +1,28 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Card from '../components/Entry.astro'
+import Layout from '../layouts/layout.astro'
+
+const pageTitle = 'Astro Starter'
 ---
 
-<Layout title="Dev Scratch.">
-  <main>
-    <ul>
-      <Card title="First entry" description="Lorem, ipsum - first." />
-      <Card title="Second entry" description="Lorem, ipsum - second." />
-      <Card title="Third entry" description="Lorem, ipsum - third." />
-    </ul>
-  </main>
-</Layout>
-
 <style>
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
+  section {
+    height: 150vh;
+    background-color: hsl(230, 45%, 10%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1 {
+    font-size: 3rem;
   }
 
 </style>
+
+<Layout title={pageTitle}>
+  <main>
+    <section>
+      <h1>Hello Astro Starter</h1>
+    </section>
+  </main>
+</Layout>
