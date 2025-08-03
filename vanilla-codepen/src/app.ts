@@ -1,3 +1,3 @@
 import './style.scss'
 
-console.log('Start project loaded.')
+console.log('Hello pug/scss/typescript.')

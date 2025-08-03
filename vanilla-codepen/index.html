@@ -4,9 +4,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Codepens</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Coiny:regular"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="preflight.css" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Pug Plugin</title>
   </head>
   <body>
-    <p><a href="/src/index.html">Codepen starter</a></p>
+    <template data-type="pug" data-src="./src/index.pug"></template>
+    <script type="module" src="./src/app.ts"></script>
   </body>
 </html>
