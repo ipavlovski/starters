@@ -1,0 +1,9 @@
+.big-button {
+  padding: 1rem;
+  border: none;
+
+  &:hover {
+    color: hsl(37, 4%, 60%);
+    background-color: rgb(44, 50, 87);
+  }
+}

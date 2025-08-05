@@ -8,7 +8,6 @@
     "preferHanging": true,
     "jsx.bracketPosition": "sameLine",
     "arrowFunction.useParentheses": "force"
-
   },
   "json": {
   },
