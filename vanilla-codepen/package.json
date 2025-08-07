@@ -3,7 +3,8 @@
     "repl": "deno repl",
     "dev": "vite"
   },
-  "dependencies": {
+  "devDependencies": {
+    "dprint": "^0.50.1",
     "sass": "^1.89.2",
     "vite": "^7.0.6",
     "vite-plugin-pug-transformer": "^1.0.8"

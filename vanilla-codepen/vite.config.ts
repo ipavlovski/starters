@@ -1,6 +1,6 @@
-// vite.config.js
+import { defineConfig } from 'vite'
 import vitePugPlugin from 'vite-plugin-pug-transformer'
 
-export default {
+export default defineConfig({
   plugins: [vitePugPlugin({})],
-}
+})

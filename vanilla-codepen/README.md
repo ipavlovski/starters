@@ -4,13 +4,13 @@
 
 Installation:
 ```sh
-pnpm install vite@latest vite-plugin-pug-transformer sass
+pnpm install -D vite@latest vite-plugin-pug-transformer sass
 ```
 
 ## Features
 
-- [ ] Out of the box typescript support (vite)
-- [ ] Pug html syntax (vite-plugin-pug-transformer)
-- [ ] SCSS with homebrewed preflight (sass)
-- [ ] Deno for zero-config typescript repl (deno)
-- [ ] SVG favicon
+- [x] Out of the box typescript support (vite)
+- [x] Pug html syntax (vite-plugin-pug-transformer)
+- [x] SCSS with homebrewed preflight (sass)
+- [x] Deno for zero-config typescript repl (deno)
+- [x] SVG favicon
