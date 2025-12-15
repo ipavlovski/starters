@@ -16,6 +16,9 @@
     "moduleDetection": "force",
     "noEmit": true,
 
+    /* Remove `src/vite-env.d.ts` file */
+    "types": ["vite/client"],
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
